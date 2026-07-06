@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTA 6 عربي — بوابة ليونيدا | أخبار وأدوات وتحليلات</title>
+<meta name="description" content="أول بوابة عربية شاملة عن Grand Theft Auto VI: أخبار لحظة بلحظة، عد تنازلي للإطلاق، خريطة ليونيدا التفاعلية، وأداة فحص أداء جهازك.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="GTA 6 عربي — بوابة ليونيدا">
+<meta property="og:description" content="أخبار، خريطة تفاعلية، وأداة فحص أداء جهازك لـ GTA VI — كل شيء بالعربي.">
+<meta property="og:locale" content="ar_AR">
+<meta property="og:image" content="og-image.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GTA 6 عربي — بوابة ليونيدا">
+<meta name="twitter:description" content="أخبار، خريطة تفاعلية، وأداة فحص أداء جهازك لـ GTA VI — كل شيء بالعربي.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0e27'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23ff2e93'%3E6%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Monoton&family=Tajawal:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --night: #0a0e27;
+    --night-deep: #050714;
+    --magenta: #ff2e93;
+    --cyan: #08e8de;
+    --amber: #ffb703;
+    --ink: #eef0ff;
+    --ink-dim: #9aa0c8;
+    --grid-line: rgba(8,232,222,0.18);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--night-deep);
+    color:var(--ink);
+    font-family:'Tajawal', sans-serif;
+    overflow-x:hidden;
+  }
+
+  .mono{ font-family:'Space Mono', monospace; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 30%, rgba(255,46,147,0.15), transparent),
+      linear-gradient(180deg, var(--night) 0%, var(--night-deep) 55%, #000 100%);
+    overflow:hidden;
+    padding:2rem 1.5rem;
+  }
+
+  .sun{
+    position:absolute;
+    top:14%;
+    width:340px;
+    height:340px;
+    border-radius:50%;
+    background:linear-gradient(180deg, var(--amber) 0%, var(--magenta) 55%, var(--cyan) 100%);
+    box-shadow: 0 0 120px rgba(255,46,147,0.35);
+    z-index:0;
+  }
+  .sun::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(var(--night-deep) 0 6px, transparent 6px 14px);
+    mix-blend-mode:normal;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 40%);
+    border-radius:50%;
+  }
+
+  .grid-floor{
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:45%;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: perspective(300px) rotateX(65deg);
+    transform-origin:bottom;
+    z-index:1;
+    animation: gridmove 6s linear infinite;
+  }
+  @keyframes gridmove{
+    from{ background-position: 0 0, 0 0; }
+    to{ background-position: 0 60px, 0 0; }
+  }
+
+  .hero-content{ position:relative; z-index:3; }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.35em;
+    font-size:0.7rem;
+    color:var(--cyan);
+    text-transform:uppercase;
+    margin-bottom:1.4rem;
+    opacity:0.9;
+  }
+
+  .neon-title{
+    font-family:'Monoton', cursive;
+    font-size:clamp(2.4rem, 9vw, 6.5rem);
+    line-height:1.05;
+    color:#fff;
+    text-shadow:
+      0 0 8px var(--magenta),
+      0 0 22px var(--magenta),
+      0 0 45px rgba(255,46,147,0.6),
+      0 0 80px rgba(8,232,222,0.35);
+    animation: flicker 5s infinite;
+    letter-spacing:0.02em;
+    direction:ltr;
+  }
+
+  @keyframes flicker{
+    0%, 3%, 6%, 100%{ opacity:1; }
+    4%{ opacity:0.55; }
+    5%{ opacity:0.9; }
+  }
+
+  .subtitle{
+    font-family:'Tajawal', sans-serif;
+    font-weight:700;
+    font-size:clamp(1.1rem, 3vw, 1.6rem);
+    color:var(--ink);
+    margin-top:1.2rem;
+  }
+  .subtitle span{ color:var(--cyan); }
+
+  .tagline{
+    margin-top:0.8rem;
+    color:var(--ink-dim);
+    font-size:1rem;
+    max-width:560px;
+    margin-inline:auto;
+  }
+
+  /* Countdown */
+  .countdown{
+    margin-top:3rem;
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .cd-box{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(8,232,222,0.35);
+    border-radius:10px;
+    padding:1rem 1.2rem;
+    min-width:88px;
+    backdrop-filter: blur(6px);
+  }
+  .cd-num{
+    font-family:'Space Mono', monospace;
+    font-size:2.1rem;
+    font-weight:700;
+    color:var(--cyan);
+    text-shadow:0 0 12px rgba(8,232,222,0.6);
+  }
+  .cd-label{
+    font-size:0.72rem;
+    color:var(--ink-dim);
+    letter-spacing:0.1em;
+    margin-top:0.3rem;
+  }
+
+  .cta-row{
+    margin-top:2.6rem;
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'Tajawal', sans-serif;
+    font-weight:700;
+    font-size:0.95rem;
+    padding:0.85rem 1.8rem;
+    border-radius:6px;
+    border:none;
+    cursor:pointer;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary{
+    background:linear-gradient(90deg, var(--magenta), #ff5f9e);
+    color:#fff;
+    box-shadow:0 0 25px rgba(255,46,147,0.45);
+  }
+  .btn-outline{
+    background:transparent;
+    color:var(--cyan);
+    border:1px solid var(--cyan);
+  }
+  .btn:hover{ transform:translateY(-2px); }
+
+  .scroll-hint{
+    position:absolute;
+    bottom:2rem;
+    z-index:3;
+    color:var(--ink-dim);
+    font-size:0.7rem;
+    letter-spacing:0.3em;
+    font-family:'Space Mono', monospace;
+  }
+
+  /* ---------- SECTIONS SHARED ---------- */
+  section.block{
+    padding:5.5rem 1.5rem;
+    max-width:1080px;
+    margin:0 auto;
+  }
+  .section-eyebrow{
+    font-family:'Space Mono', monospace;
+    color:var(--magenta);
+    letter-spacing:0.25em;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    margin-bottom:0.8rem;
+  }
+  .section-title{
+    font-family:'Tajawal', sans-serif;
+    font-weight:900;
+    font-size:clamp(1.7rem, 4vw, 2.6rem);
+    margin-bottom:1rem;
+  }
+  .section-title span{ color:var(--cyan); }
+  .section-desc{
+    color:var(--ink-dim);
+    max-width:640px;
+    line-height:1.9;
+    font-size:1rem;
+  }
+
+  /* ---------- NEWS TICKER ---------- */
+  .ticker-wrap{
+    border-top:1px solid rgba(8,232,222,0.25);
+    border-bottom:1px solid rgba(8,232,222,0.25);
+    background:rgba(255,46,147,0.05);
+    padding:0.9rem 0;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .ticker{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:0.85rem;
+    color:var(--ink);
+    animation: ticker 32s linear infinite;
+    direction:rtl;
+  }
+  .ticker b{ color:var(--amber); margin-inline-start:0.4rem; }
+  .ticker .sep{ color:var(--magenta); margin:0 1.5rem; }
+  @keyframes ticker{
+    0%{ transform:translateX(100%); }
+    100%{ transform:translateX(-100%); }
+  }
+
+  /* ---------- FEATURE GRID ---------- */
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:1.2rem;
+    margin-top:2.5rem;
+  }
+  .feature-card{
+    background:linear-gradient(160deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:14px;
+    padding:1.8rem 1.5rem;
+    position:relative;
+    overflow:hidden;
+    transition:border-color 0.2s ease, transform 0.2s ease;
+  }
+  .feature-card:hover{
+    border-color:var(--cyan);
+    transform:translateY(-4px);
+  }
+  .feature-card .tag{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.15em;
+    color:var(--night-deep);
+    background:var(--cyan);
+    padding:0.2rem 0.6rem;
+    border-radius:20px;
+    margin-bottom:1rem;
+  }
+  .feature-card .tag.soon{ background:var(--amber); }
+  .feature-card h3{
+    font-size:1.15rem;
+    margin-bottom:0.6rem;
+    font-weight:700;
+  }
+  .feature-card p{
+    color:var(--ink-dim);
+    font-size:0.9rem;
+    line-height:1.7;
+  }
+
+  /* ---------- MAP TEASER ---------- */
+  .map-teaser{
+    margin-top:2.5rem;
+    border-radius:16px;
+    border:1px solid rgba(255,46,147,0.3);
+    background:
+      radial-gradient(circle at 30% 20%, rgba(8,232,222,0.12), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(255,46,147,0.12), transparent 50%),
+      #0d1230;
+    padding:3rem 1.5rem;
+    text-align:center;
+    position:relative;
+  }
+  .map-teaser::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(8,232,222,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(8,232,222,0.06) 1px, transparent 1px);
+    background-size:34px 34px;
+    border-radius:16px;
+  }
+  .map-teaser-content{ position:relative; z-index:1; }
+  .pin{
+    font-family:'Space Mono', monospace;
+    font-size:0.75rem;
+    color:var(--cyan);
+    border:1px dashed var(--cyan);
+    display:inline-block;
+    padding:0.4rem 0.9rem;
+    border-radius:20px;
+    margin-bottom:1rem;
+  }
+
+  /* ---------- PERFORMANCE CHECKER ---------- */
+  .checker{
+    margin-top:2.5rem;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px;
+    padding:2.2rem;
+  }
+  .checker-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.2rem;
+    margin-top:1.5rem;
+  }
+  @media (max-width:560px){ .checker-grid{ grid-template-columns:1fr; } }
+
+  .field label{
+    display:block;
+    font-size:0.85rem;
+    color:var(--ink-dim);
+    margin-bottom:0.5rem;
+  }
+  select{
+    width:100%;
+    background:var(--night);
+    color:var(--ink);
+    border:1px solid rgba(8,232,222,0.35);
+    border-radius:8px;
+    padding:0.7rem 0.9rem;
+    font-family:'Tajawal', sans-serif;
+    font-size:0.95rem;
+  }
+
+  .checker-btn{
+    margin-top:1.6rem;
+    width:100%;
+  }
+
+  .result{
+    margin-top:1.6rem;
+    padding:1.4rem;
+    border-radius:10px;
+    display:none;
+  }
+  .result.show{ display:block; }
+  .result-tier{
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    font-size:1.3rem;
+    margin-bottom:0.4rem;
+  }
+  .result-desc{ color:var(--ink-dim); font-size:0.9rem; line-height:1.7; }
+
+  .disclaimer{
+    margin-top:1rem;
+    font-size:0.75rem;
+    color:var(--ink-dim);
+    font-family:'Space Mono', monospace;
+    opacity:0.7;
+  }
+
+  /* ---------- COMMUNITY ---------- */
+  .community{
+    text-align:center;
+    background:linear-gradient(160deg, rgba(255,46,147,0.08), rgba(8,232,222,0.06));
+    border-radius:20px;
+    padding:3.5rem 1.5rem;
+    margin:0 1.5rem;
+  }
+
+  .signup-form{
+    margin-top:2rem;
+    display:flex;
+    gap:0.7rem;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .signup-input{
+    background:rgba(0,0,0,0.3);
+    border:1px solid rgba(8,232,222,0.4);
+    color:var(--ink);
+    border-radius:6px;
+    padding:0.85rem 1.1rem;
+    font-size:0.9rem;
+    min-width:240px;
+    direction:ltr;
+    text-align:right;
+  }
+  .signup-input:focus{ outline:2px solid var(--cyan); outline-offset:2px; }
+  .signup-msg{
+    margin-top:0.8rem;
+    font-size:0.85rem;
+    color:var(--cyan);
+    min-height:1.2rem;
+    font-family:'Space Mono', monospace;
+  }
+
+  footer{
+    text-align:center;
+    padding:2.5rem 1.5rem;
+    color:var(--ink-dim);
+    font-size:0.8rem;
+    font-family:'Space Mono', monospace;
+    border-top:1px solid rgba(255,255,255,0.06);
+    margin-top:2rem;
+  }
+  footer .brand{ color:var(--magenta); }
+
+  @media (prefers-reduced-motion: reduce){
+    .neon-title, .grid-floor, .ticker{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="sun"></div>
+  <div class="grid-floor"></div>
+  <div class="hero-content">
+    <div class="eyebrow">LEONIDA · VICE CITY · 19.11.2026</div>
+    <h1 class="neon-title">GTA VI</h1>
+    <p class="subtitle">أول بوابة عربية شاملة عن <span>Grand Theft Auto VI</span></p>
+    <p class="tagline">أخبار لحظة بلحظة، خريطة ليونيدا التفاعلية، وأداة تفحص إذا جهازك يتحمّل اللعبة — كل شيء بالعربي، في مكان واحد.</p>
+
+    <div class="countdown mono" id="countdown">
+      <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-label">يوم</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">ساعة</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-min">--</div><div class="cd-label">دقيقة</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-sec">--</div><div class="cd-label">ثانية</div></div>
+    </div>
+
+    <div class="cta-row">
+      <button class="btn btn-primary" onclick="document.getElementById('checker-section').scrollIntoView({behavior:'smooth'})" aria-label="انتقل إلى أداة فحص الأداء">جرّب أداة فحص الأداء</button>
+      <button class="btn btn-outline" onclick="document.getElementById('map-section').scrollIntoView({behavior:'smooth'})" aria-label="انتقل إلى قسم الخريطة">استكشف خريطة ليونيدا</button>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL ▾</div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker mono">
+    <b>عاجل</b> الحملة التسويقية الكبرى تبدأ صيف 2026 <span class="sep">◆</span>
+    <b>مؤكد</b> الإصدار حصري على PS5 و Xbox Series X/S عند الإطلاق <span class="sep">◆</span>
+    <b>تحديث</b> النسخة القياسية 79.99$ والنسخة الكاملة 99.99$ <span class="sep">◆</span>
+    <b>تسريب</b> تفاصيل جديدة عن مدينة فايس سيتي في ولاية ليونيدا <span class="sep">◆</span>
+    <b>متابعة</b> لا يوجد إعلان رسمي بعد عن نسخة الكمبيوتر <span class="sep">◆</span>
+    <b>عاجل</b> الحملة التسويقية الكبرى تبدأ صيف 2026 <span class="sep">◆</span>
+  </div>
+</div>
+
+<section class="block">
+  <div class="section-eyebrow">لماذا هذا الموقع</div>
+  <h2 class="section-title">كل شيء عن <span>ليونيدا</span>، بلغتك</h2>
+  <p class="section-desc">ما فيش موقع عربي واحد يجمع الأخبار، الخرائط، وأدوات القرار قبل الإطلاق. هذا المكان يبنى ليكون المرجع الأول.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <span class="tag">مباشر</span>
+      <h3>تغطية فورية</h3>
+      <p>كل تسريب أو إعلان رسمي من Rockstar يترجم ويُحلّل بالعربي خلال ساعات، لا أيام.</p>
+    </div>
+    <div class="feature-card">
+      <span class="tag">جاهزة الآن</span>
+      <h3>خريطة ليونيدا التفاعلية</h3>
+      <p>خريطة بالعربي بالكامل بالمناطق الست المؤكدة من Rockstar، مع تمييز واضح بين المؤكد والشائعات.</p>
+    </div>
+    <div class="feature-card">
+      <span class="tag">جاهزة الآن</span>
+      <h3>فاحص الأداء</h3>
+      <p>أدخل مواصفات جهازك واعرف تقديرياً وين راح تقف من ناحية الأداء المتوقع.</p>
+    </div>
+    <div class="feature-card">
+      <span class="tag soon">قريباً</span>
+      <h3>مجتمع عربي</h3>
+      <p>مساحة نقاش لمحبي السلسلة في المنطقة العربية، للتحليل والتوقعات والمشاركة.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="map-section">
+  <div class="section-eyebrow">استكشاف</div>
+  <h2 class="section-title">خريطة <span>ليونيدا</span></h2>
+  <p class="section-desc">أول ما تتأكد تفاصيل الخريطة رسمياً، تُبنى هنا نسخة تفاعلية كاملة بالعربي — بالأحياء، والمعالم، ونقاط الاهتمام.</p>
+
+  <div class="map-teaser">
+    <div class="map-teaser-content">
+      <div class="pin">◈ 6 مناطق مؤكدة رسميًا</div>
+      <h3 style="font-size:1.3rem; margin-bottom:0.6rem;">الخريطة التفاعلية جاهزة الآن</h3>
+      <p style="color:var(--ink-dim); max-width:420px; margin:0 auto 1.5rem;">فايس سيتي، جزر ليونيدا، Grassrivers، Port Gellhorn، Ambrosia، وجبل Kalaga — كل التفاصيل المؤكدة من Rockstar في مكان واحد.</p>
+      <a href="leonida-map.html" class="btn btn-primary">افتح الخريطة الكاملة</a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="checker-section">
+  <div class="section-eyebrow">أداة تفاعلية</div>
+  <h2 class="section-title">هل جهازك <span>جاهز</span> لـ GTA VI؟</h2>
+  <p class="section-desc">Rockstar لم تُعلن المتطلبات الرسمية بعد. هذي الأداة تعطيك تقدير أولي مبني على أداء الألعاب المفتوحة العالم المشابهة، وراح تتحدث فور صدور المتطلبات الرسمية.</p>
+
+  <div class="checker">
+    <div class="checker-grid">
+      <div class="field">
+        <label>كرت الشاشة (GPU)</label>
+        <select id="gpu">
+          <option value="1">GTX 1650 / أقل</option>
+          <option value="2">GTX 1660 / RTX 2060</option>
+          <option value="3" selected>RTX 3050 / RTX 3060</option>
+          <option value="4">RTX 3070 / RTX 4060</option>
+          <option value="5">RTX 4070 وما فوق</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>الذاكرة العشوائية (RAM)</label>
+        <select id="ram">
+          <option value="1">8 جيجا</option>
+          <option value="2" selected>16 جيجا</option>
+          <option value="3">32 جيجا وما فوق</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>المعالج (CPU)</label>
+        <select id="cpu">
+          <option value="1">Core i5 / Ryzen 5 (أجيال قديمة)</option>
+          <option value="2" selected>Core i5/i7 / Ryzen 5/7 (أجيال حديثة)</option>
+          <option value="3">Core i9 / Ryzen 9</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>نوع التخزين</label>
+        <select id="storage">
+          <option value="1">HDD</option>
+          <option value="2" selected>SSD</option>
+          <option value="3">NVMe SSD</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-primary checker-btn" onclick="checkPerformance()">افحص جهازي الآن</button>
+
+    <div class="result" id="result">
+      <div class="result-tier" id="result-tier"></div>
+      <div class="result-desc" id="result-desc"></div>
+    </div>
+
+    <div class="disclaimer">* تقدير غير رسمي مبني على مقارنات مع ألعاب Rockstar السابقة. سيتم التحديث فور إعلان المتطلبات الرسمية.</div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="community">
+    <div class="section-eyebrow" style="justify-content:center; display:flex;">انضم إلينا</div>
+    <h2 class="section-title">كن أول من <span>يعرف</span></h2>
+    <p class="section-desc" style="margin-inline:auto;">تابع العد التنازلي، وكن أول من يشوف الخريطة التفاعلية وأول من يقرأ كل خبر بالعربي.</p>
+
+    <form class="signup-form" id="signup-form" onsubmit="handleSignup(event)">
+      <input type="email" id="signup-email" class="signup-input mono" placeholder="بريدك الإلكتروني" required aria-label="بريدك الإلكتروني">
+      <button type="submit" class="btn btn-primary">أعلمني عند الإطلاق</button>
+    </form>
+    <div class="signup-msg" id="signup-msg"></div>
+
+    <div class="cta-row" style="margin-top:1.5rem;">
+      <a class="btn btn-outline" href="#" id="discord-link" aria-label="رابط Discord — عدّله برابط سيرفرك الفعلي">انضم لمجتمع Discord</a>
+      <a class="btn btn-outline" href="#" id="tiktok-link" aria-label="رابط تيك توك — عدّله بحسابك الفعلي">تابعنا على تيك توك</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><span class="brand">GTA VI عربي</span> — مشروع مجتمعي غير رسمي وغير تابع لـ Rockstar Games أو Take-Two Interactive.</div>
+  <div style="margin-top:0.5rem;">جميع الحقوق الخاصة باللعبة والعلامة التجارية محفوظة لأصحابها.</div>
+</footer>
+
+<script>
+  // Email signup — replace FORM_ENDPOINT with your Formspree/Mailchimp endpoint to actually collect emails.
+  // Free option: https://formspree.io — create a form, copy its endpoint URL here.
+  const FORM_ENDPOINT = ""; // Configure before deployment // e.g. "https://formspree.io/f/xxxxxxx"
+
+  async function handleSignup(e){
+    e.preventDefault();
+    const email = document.getElementById('signup-email').value;
+    const msg = document.getElementById('signup-msg');
+
+    if(!FORM_ENDPOINT){
+      msg.textContent = "⚠ لتفعيل جمع الإيميلات فعلياً، أضف رابط Formspree أو Mailchimp في الكود (FORM_ENDPOINT).";
+      msg.style.color = "var(--amber)";
+      return;
+    }
+
+    try{
+      msg.textContent = "جارِ الإرسال...";
+      msg.style.color = "var(--cyan)";
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      if(res.ok){
+        msg.textContent = "✓ تم! راح نعلمك أول ما نطلق.";
+        msg.style.color = "var(--cyan)";
+        document.getElementById('signup-form').reset();
+      } else {
+        throw new Error("failed");
+      }
+    } catch(err){
+      msg.textContent = "حدث خطأ، حاول مرة أخرى لاحقاً.";
+      msg.style.color = "var(--magenta)";
+    }
+  }
+
+  // Countdown to Nov 19, 2026 00:00 local
+  const target = new Date("2026-11-19T00:00:00");
+  function updateCountdown(){
+    const now = new Date();
+    let diff = target - now;
+    if(diff < 0) diff = 0;
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const mins = Math.floor((diff / (1000*60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+    document.getElementById('cd-days').textContent = days;
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-min').textContent = String(mins).padStart(2,'0');
+    document.getElementById('cd-sec').textContent = String(secs).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Replace these with your real social links before publishing.
+  document.getElementById('discord-link').href = "https://discord.gg/YOUR_INVITE_CODE";
+  document.getElementById('tiktok-link').href = "https://www.tiktok.com/@YOUR_HANDLE";
+
+  // Performance checker (illustrative heuristic, not official)
+  function checkPerformance(){
+    const gpu = parseInt(document.getElementById('gpu').value);
+    const ram = parseInt(document.getElementById('ram').value);
+    const cpu = parseInt(document.getElementById('cpu').value);
+    const storage = parseInt(document.getElementById('storage').value);
+
+    const score = gpu*2 + ram*1.2 + cpu*1.3 + storage*0.8;
+
+    const result = document.getElementById('result');
+    const tierEl = document.getElementById('result-tier');
+    const descEl = document.getElementById('result-desc');
+
+    let tier, desc, color;
+    if(score >= 14.5){
+      tier = "◆ أداء عالي متوقع (High / Ultra)";
+      desc = "جهازك على الورق من الفئة القوية. غالباً تقدر تلعب بإعدادات عالية ودقة جيدة، بانتظار التأكيد الرسمي من Rockstar.";
+      color = "var(--cyan)";
+    } else if(score >= 9.5){
+      tier = "◆ أداء متوسط إلى جيد (Medium / High)";
+      desc = "جهازك قريب من متطلبات الألعاب المفتوحة العالم الحديثة. من المرجح تحتاج تعديل بعض الإعدادات (الظلال، الإضاءة) للحصول على أداء مستقر.";
+      color = "var(--amber)";
+    } else {
+      tier = "◆ يُنصح بترقية بعض المكوّنات";
+      desc = "بناءً على متطلبات الألعاب المشابهة، جهازك الحالي قد يواجه صعوبة. فكر في ترقية كرت الشاشة أو الذاكرة قبل الإطلاق.";
+      color = "var(--magenta)";
+    }
+
+    tierEl.style.color = color;
+    tierEl.textContent = tier;
+    descEl.textContent = desc;
+    result.classList.add('show');
+    result.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خريطة ليونيدا التفاعلية | GTA 6 عربي</title>
+<meta name="description" content="خريطة تفاعلية بالعربي لولاية ليونيدا في GTA 6 — فايس سيتي، جزر ليونيدا، Grassrivers، Port Gellhorn، Ambrosia، وجبل Kalaga. كل المعلومات مصنّفة بين مؤكد وشائعات.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0e27'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23ff2e93'%3E6%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Monoton&family=Tajawal:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --night: #0a0e27;
+    --night-deep: #050714;
+    --magenta: #ff2e93;
+    --cyan: #08e8de;
+    --amber: #ffb703;
+    --ink: #eef0ff;
+    --ink-dim: #9aa0c8;
+    --land: #12183a;
+    --land-line: rgba(8,232,222,0.25);
+    --map-water: #2f7fb0;
+    --map-water-deep: #1f5c85;
+    --map-land: #9dbf6b;
+    --map-land-dark: #7fa354;
+    --map-forest: #6d8f47;
+    --map-road: #35342f;
+    --map-city: #c9c7bd;
+    --map-city-line: #8a8878;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    background:var(--night-deep);
+    color:var(--ink);
+    font-family:'Tajawal', sans-serif;
+    min-height:100vh;
+  }
+  .mono{ font-family:'Space Mono', monospace; }
+
+  header{
+    padding:1.2rem 1.5rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    flex-wrap:wrap;
+    gap:0.8rem;
+  }
+  .logo{
+    font-family:'Monoton', cursive;
+    color:#fff;
+    font-size:1.3rem;
+    text-shadow:0 0 10px var(--magenta), 0 0 24px rgba(255,46,147,0.5);
+    direction:ltr;
+  }
+  .back-link{
+    font-family:'Space Mono', monospace;
+    font-size:0.8rem;
+    color:var(--cyan);
+    text-decoration:none;
+    border:1px solid rgba(8,232,222,0.4);
+    padding:0.5rem 1rem;
+    border-radius:20px;
+  }
+
+  .intro{
+    max-width:760px;
+    margin:2.5rem auto 1.5rem;
+    padding:0 1.5rem;
+    text-align:center;
+  }
+  .intro h1{
+    font-size:clamp(1.6rem, 4vw, 2.4rem);
+    font-weight:900;
+    margin-bottom:0.8rem;
+  }
+  .intro h1 span{ color:var(--cyan); }
+  .intro p{ color:var(--ink-dim); line-height:1.9; font-size:0.95rem; }
+
+  .legend{
+    display:flex;
+    gap:1.2rem;
+    justify-content:center;
+    margin:1.5rem auto 0;
+    flex-wrap:wrap;
+    font-size:0.8rem;
+    font-family:'Space Mono', monospace;
+  }
+  .legend-item{ display:flex; align-items:center; gap:0.5rem; }
+  .dot{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .dot.confirmed{ background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
+  .dot.rumored{ background:var(--amber); box-shadow:0 0 8px var(--amber); }
+
+  .map-wrap{
+    max-width:1000px;
+    margin:2.5rem auto;
+    padding:0 1.5rem 3rem;
+    display:grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap:1.5rem;
+    align-items:start;
+  }
+  @media (max-width:800px){ .map-wrap{ grid-template-columns:1fr; } }
+
+  .map-stage{
+    position:relative;
+    background:#e9e4d3;
+    padding:12px;
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:18px;
+    overflow:hidden;
+    aspect-ratio: 2/3;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.25);
+  }
+  .map-stage svg{ width:100%; height:100%; display:block; border-radius:10px; }
+
+  .pin{
+    position:absolute;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    border:2px solid var(--night-deep);
+    cursor:pointer;
+    transform:translate(-50%,-50%);
+    transition:transform 0.15s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .pin:hover{ transform:translate(-50%,-50%) scale(1.2); }
+  .pin.confirmed{ background:var(--cyan); box-shadow:0 0 12px var(--cyan); }
+  .pin.rumored{ background:var(--amber); box-shadow:0 0 12px var(--amber); }
+  .pin.active{ outline:3px solid #fff; }
+
+  .pin-label{
+    position:absolute;
+    top:26px;
+    right:50%;
+    transform:translateX(50%);
+    font-family:'Space Mono', monospace;
+    font-size:0.62rem;
+    color:var(--ink);
+    background:rgba(0,0,0,0.55);
+    padding:0.1rem 0.4rem;
+    border-radius:4px;
+    white-space:nowrap;
+    pointer-events:none;
+  }
+
+  .info-panel{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px;
+    padding:1.8rem;
+    min-height:320px;
+    position:sticky;
+    top:1.5rem;
+  }
+  .info-tag{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.1em;
+    padding:0.25rem 0.7rem;
+    border-radius:20px;
+    margin-bottom:1rem;
+  }
+  .info-tag.confirmed{ background:var(--cyan); color:var(--night-deep); }
+  .info-tag.rumored{ background:var(--amber); color:var(--night-deep); }
+  .info-panel h2{ font-size:1.3rem; margin-bottom:0.7rem; }
+  .info-panel p{ color:var(--ink-dim); line-height:1.85; font-size:0.9rem; margin-bottom:0.8rem; }
+  .info-source{
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    color:var(--ink-dim);
+    opacity:0.7;
+    border-top:1px solid rgba(255,255,255,0.08);
+    padding-top:0.8rem;
+    margin-top:1rem;
+  }
+  .info-placeholder{
+    color:var(--ink-dim);
+    text-align:center;
+    padding-top:3rem;
+    font-size:0.9rem;
+    line-height:1.9;
+  }
+
+  .sub-map-note{
+    margin-top:1rem;
+    font-size:0.78rem;
+    color:var(--ink-dim);
+    text-align:center;
+    font-family:'Space Mono', monospace;
+  }
+
+  footer{
+    text-align:center;
+    padding:2rem 1.5rem;
+    color:var(--ink-dim);
+    font-size:0.75rem;
+    font-family:'Space Mono', monospace;
+    border-top:1px solid rgba(255,255,255,0.06);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">GTA VI</div>
+  <a href="gta6-arabic-hub.html" class="back-link">→ رجوع للرئيسية</a>
+</header>
+
+<div class="intro">
+  <h1>خريطة <span>ولاية ليونيدا</span></h1>
+  <p>ست مناطق أعلنتها Rockstar رسميًا عبر التريلرات ولقطات الشاشة الرسمية. اضغط على أي نقطة لتعرف تفاصيلها. النقاط الزرقاء مؤكدة رسميًا، والصفراء شائعات قوية من تحليل المجتمع لم تؤكدها Rockstar بعد.</p>
+  <div class="legend">
+    <div class="legend-item"><span class="dot confirmed"></span> مؤكد من Rockstar</div>
+    <div class="legend-item"><span class="dot rumored"></span> شائعة / تحليل مجتمعي</div>
+  </div>
+</div>
+
+<div class="map-wrap">
+  <div class="map-stage" id="map-stage">
+    <svg viewBox="0 0 500 750" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="waterGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="var(--map-water)"/>
+          <stop offset="100%" stop-color="var(--map-water-deep)"/>
+        </linearGradient>
+        <pattern id="cityGrid" width="9" height="9" patternUnits="userSpaceOnUse">
+          <rect width="9" height="9" fill="var(--map-city)"/>
+          <path d="M0,0 H9 M0,0 V9" stroke="var(--map-city-line)" stroke-width="0.7"/>
+        </pattern>
+        <pattern id="cityGridDense" width="6" height="6" patternUnits="userSpaceOnUse">
+          <rect width="6" height="6" fill="var(--map-city)"/>
+          <path d="M0,0 H6 M0,0 V6" stroke="var(--map-city-line)" stroke-width="0.8"/>
+        </pattern>
+        <clipPath id="landClip">
+          <path d="M70,140 Q50,100 90,80 L180,60 Q220,40 260,60 Q300,45 340,65
+                   Q380,55 410,80 Q440,70 460,95 Q470,115 450,130 Q430,125 415,140
+                   Q420,170 400,190 Q415,210 400,230 Q380,220 365,240 Q350,270 330,285
+                   Q345,315 325,335 Q335,365 315,385 Q325,415 305,435 Q290,460 300,485
+                   Q280,510 260,530 Q270,560 250,580 Q255,610 235,625 Q210,640 195,625
+                   Q175,600 165,575 Q145,555 140,525 Q120,535 105,510 Q115,485 100,465
+                   Q80,460 70,435 Q85,415 70,390 Q55,380 50,350 Q65,335 55,305
+                   Q40,295 40,265 Q55,250 45,220 Q30,205 35,175 Q45,155 70,140 Z"/>
+        </clipPath>
+      </defs>
+
+      <!-- water -->
+      <rect width="500" height="750" fill="url(#waterGrad)"/>
+      <path d="M0,0 L500,0 L500,750 L0,750 Z" fill="url(#waterGrad)" opacity="0"/>
+
+      <!-- small offshore islands, north -->
+      <ellipse cx="430" cy="55" rx="20" ry="11" fill="var(--map-land)" stroke="var(--map-land-dark)" stroke-width="1.5"/>
+      <ellipse cx="462" cy="44" rx="11" ry="6" fill="var(--map-land)" stroke="var(--map-land-dark)" stroke-width="1.2"/>
+
+      <!-- main landmass -->
+      <path d="M70,140 Q50,100 90,80 L180,60 Q220,40 260,60 Q300,45 340,65
+               Q380,55 410,80 Q440,70 460,95 Q470,115 450,130 Q430,125 415,140
+               Q420,170 400,190 Q415,210 400,230 Q380,220 365,240 Q350,270 330,285
+               Q345,315 325,335 Q335,365 315,385 Q325,415 305,435 Q290,460 300,485
+               Q280,510 260,530 Q270,560 250,580 Q255,610 235,625 Q210,640 195,625
+               Q175,600 165,575 Q145,555 140,525 Q120,535 105,510 Q115,485 100,465
+               Q80,460 70,435 Q85,415 70,390 Q55,380 50,350 Q65,335 55,305
+               Q40,295 40,265 Q55,250 45,220 Q30,205 35,175 Q45,155 70,140 Z"
+            fill="var(--map-land)" stroke="var(--map-land-dark)" stroke-width="2"/>
+
+      <!-- terrain texture, clipped to landmass -->
+      <g clip-path="url(#landClip)">
+        <!-- forest patches, Mount Kalaga north -->
+        <ellipse cx="200" cy="110" rx="55" ry="30" fill="var(--map-forest)" opacity="0.75"/>
+        <ellipse cx="290" cy="95" rx="40" ry="22" fill="var(--map-forest)" opacity="0.7"/>
+        <ellipse cx="340" cy="140" rx="35" ry="45" fill="var(--map-forest)" opacity="0.55"/>
+
+        <!-- Lake Leonida, Ambrosia -->
+        <ellipse cx="255" cy="320" rx="28" ry="20" fill="var(--map-water)" stroke="var(--map-water-deep)" stroke-width="1.5"/>
+
+        <!-- rivers winding through Grassrivers -->
+        <path d="M200,360 Q220,400 195,430 Q175,460 200,490 Q215,515 195,545"
+              fill="none" stroke="var(--map-water)" stroke-width="4" opacity="0.8"/>
+        <path d="M150,420 Q170,450 155,480 Q140,505 165,530"
+              fill="none" stroke="var(--map-water)" stroke-width="3" opacity="0.7"/>
+
+        <!-- wetland texture dots, Grassrivers -->
+        <g fill="var(--map-forest)" opacity="0.4">
+          <circle cx="180" cy="470" r="4"/><circle cx="205" cy="500" r="3.5"/>
+          <circle cx="160" cy="500" r="3"/><circle cx="220" cy="460" r="3"/>
+          <circle cx="190" cy="440" r="3.5"/><circle cx="230" cy="510" r="3"/>
+        </g>
+
+        <!-- roads: main highway spine -->
+        <path d="M200,80 Q260,120 300,180 Q330,240 320,300 Q300,360 290,420 Q275,480 250,540 Q235,580 220,610"
+              fill="none" stroke="var(--map-road)" stroke-width="2.2"/>
+        <path d="M90,150 Q140,220 130,300 Q120,380 95,440"
+              fill="none" stroke="var(--map-road)" stroke-width="1.6" opacity="0.85"/>
+        <path d="M320,300 L420,190" fill="none" stroke="var(--map-road)" stroke-width="1.4" opacity="0.7"/>
+
+        <!-- small towns, light grid clusters -->
+        <rect x="330" y="150" width="34" height="28" fill="url(#cityGrid)" stroke="var(--map-city-line)" stroke-width="1"/>
+        <rect x="95" y="160" width="26" height="22" fill="url(#cityGrid)" stroke="var(--map-city-line)" stroke-width="1"/>
+
+        <!-- Port Gellhorn urban cluster, west coast -->
+        <rect x="42" y="310" width="46" height="40" fill="url(#cityGrid)" stroke="var(--map-city-line)" stroke-width="1.2"/>
+
+        <!-- Vice City dense urban core, southern tip -->
+        <rect x="195" y="545" width="90" height="85" fill="url(#cityGridDense)" stroke="var(--map-city-line)" stroke-width="1.4"/>
+        <rect x="150" y="570" width="45" height="55" fill="url(#cityGrid)" stroke="var(--map-city-line)" stroke-width="1.2" opacity="0.9"/>
+      </g>
+
+      <!-- coastline highlight around Vice-Dade -->
+      <path d="M250,540 Q270,560 260,590 Q248,615 220,610" fill="none" stroke="var(--magenta)" stroke-width="1.6" opacity="0.7"/>
+
+      <!-- causeway to the Keys -->
+      <path d="M195,625 L170,655 L145,670 L120,682 L95,690 L70,695" fill="none" stroke="var(--map-road)" stroke-width="2" stroke-dasharray="4 3"/>
+
+      <!-- Leonida Keys chain -->
+      <ellipse cx="170" cy="655" rx="11" ry="6" fill="var(--map-land)" stroke="var(--map-land-dark)" stroke-width="1.3"/>
+      <ellipse cx="145" cy="670" rx="9" ry="5" fill="var(--map-land)" stroke="var(--map-land-dark)" stroke-width="1.2"/>
+      <ellipse cx="120" cy="682" rx="8" ry="4.5" fill="var(--map-land)" stroke="var(--map-land-dark)" stroke-width="1.1"/>
+      <ellipse cx="95" cy="690" rx="7" ry="4" fill="var(--map-land)" stroke="var(--map-land-dark)" stroke-width="1"/>
+      <ellipse cx="70" cy="695" rx="6" ry="3.5" fill="var(--map-land)" stroke="var(--map-land-dark)" stroke-width="1"/>
+    </svg>
+
+    <!-- Region pins, positioned to match the illustrated map above -->
+    <div class="pin confirmed" style="top:14.7%; left:46%;" data-id="kalaga"></div>
+    <div class="pin confirmed" style="top:42.7%; left:50%;" data-id="ambrosia"></div>
+    <div class="pin confirmed" style="top:44%; left:13%;" data-id="gellhorn"></div>
+    <div class="pin confirmed" style="top:66.7%; left:40%;" data-id="grassrivers"></div>
+    <div class="pin confirmed" style="top:78.7%; left:48%;" data-id="vicecity"></div>
+    <div class="pin confirmed" style="top:90.9%; left:24%;" data-id="keys"></div>
+
+    <!-- Vice City sub-landmarks -->
+    <div class="pin confirmed" style="top:74.7%; left:54%; width:14px; height:14px;" data-id="oceanbeach"></div>
+    <div class="pin rumored" style="top:80%; left:44%; width:14px; height:14px;" data-id="littlehaiti"></div>
+    <div class="pin rumored" style="top:72.7%; left:51%; width:14px; height:14px;" data-id="littlehavana"></div>
+  </div>
+
+  <div class="info-panel" id="info-panel">
+    <div class="info-placeholder">اضغط على أي نقطة في الخريطة لعرض التفاصيل هنا</div>
+  </div>
+</div>
+
+<div class="sub-map-note">شكل اليابسة مرسوم بالاعتماد على تضاريس فلوريدا الحقيقية (المصدر الرسمي لولاية ليونيدا الخيالية) — شبه جزيرة + panhandle + سلسلة جزر الـ Keys. الحدود الدقيقة بين المناطق لم تُعلن رسميًا بعد، وستُحدّث فور صدورها.</div>
+
+<footer>
+  GTA VI عربي — مشروع مجتمعي غير رسمي وغير تابع لـ Rockstar Games أو Take-Two Interactive.<br>
+  المعلومات مبنية على التريلرات ولقطات الشاشة الرسمية، بالإضافة لتحليلات المجتمع المُشار إليها بوضوح.
+</footer>
+
+<script>
+  const data = {
+    kalaga: {
+      tag: "confirmed",
+      title: "جبل Kalaga الوطني",
+      desc: "يقع في أقصى شمال ليونيدا. منطقة برية بالكامل: غابات كثيفة، أودية، ومسارات صيد وصيد أسماك وقيادة خارج الطريق. مستوحاة من شمال فلوريدا وجورجيا. تسكنها شخصيات منعزلة عن الحكومة حسب الوصف الرسمي.",
+      source: "المصدر: لقطات شاشة رسمية من Rockstar Games"
+    },
+    ambrosia: {
+      tag: "confirmed",
+      title: "Ambrosia",
+      desc: "قلب ليونيدا الزراعي والصناعي، بجانب بحيرة ليونيدا. تهيمن عليها مصانع تكرير السكر والمزارع والسكك الحديدية. عصابات الدراجات النارية لها حضور قوي في اقتصاد المنطقة حسب وصف Rockstar.",
+      source: "المصدر: لقطات شاشة رسمية من Rockstar Games"
+    },
+    gellhorn: {
+      tag: "confirmed",
+      title: "Port Gellhorn",
+      desc: "الساحل الغربي المنسي لولاية ليونيدا. منطقة صناعية بها أرصفة ميناء، مستودعات، ومحطات وقود مهجورة. مركز لوجستي مرتبط بالسكك الحديدية والطرق السريعة الرئيسية.",
+      source: "المصدر: لقطات شاشة رسمية من Rockstar Games"
+    },
+    grassrivers: {
+      tag: "confirmed",
+      title: "Grassrivers",
+      desc: "نسخة Rockstar من مستنقعات Everglades الحقيقية. منطقة طبيعية شاسعة فيها مستنقعات وأنهار بطيئة وغابات من أشجار السرو. ظهرت فيها قوارب airboats وتماسيح في التريلرات.",
+      source: "المصدر: التريلر الثاني الرسمي"
+    },
+    vicecity: {
+      tag: "confirmed",
+      title: "فايس سيتي (Vice City)",
+      desc: "قلب الخريطة ومركزها الحضري، نسخة عصرية من ميامي. تجمع بين الفخامة والفقر جنبًا إلى جنب، وتحتوي شبكة واسعة من القنوات المائية والخلجان. تشمل معالم مؤكدة مثل مطار فايس سيتي الدولي، ميناء VC، نادي Malibu، ونصب ليونيدا التذكاري.",
+      source: "المصدر: التريلرين الرسميين ولقطات الشاشة"
+    },
+    keys: {
+      tag: "confirmed",
+      title: "جزر ليونيدا (Leonida Keys)",
+      desc: "سلسلة جزر استوائية في أقصى جنوب الولاية، مستوحاة من Florida Keys الحقيقية، متصلة بجسور طويلة. هنا يبدأ جيسون ولوسيا في المخبأ الأول حسب التريلر الثاني. يُتوقع استكشاف تحت الماء (شعاب مرجانية، حطام سفن).",
+      source: "المصدر: التريلر الثاني الرسمي"
+    },
+    oceanbeach: {
+      tag: "confirmed",
+      title: "Ocean Beach",
+      desc: "حي داخل فايس سيتي، فنادق آرت ديكو بألوان الباستيل ورمال بيضاء ناصعة. من أكثر الأحياء المؤكدة تفصيلاً في المواد الترويجية الرسمية.",
+      source: "المصدر: الموقع الرسمي لـ GTA VI"
+    },
+    littlehaiti: {
+      tag: "rumored",
+      title: "Little Haiti (شائعة)",
+      desc: "حي يُعتقد وجوده استنادًا لتحليل إطارات التريلر ومقارنته بأحياء ميامي الحقيقية. لم تؤكده Rockstar رسميًا حتى الآن.",
+      source: "المصدر: تحليل مجتمعي غير رسمي"
+    },
+    littlehavana: {
+      tag: "rumored",
+      title: "Little Havana (شائعة)",
+      desc: "حي كوبي الطابع يُرجَّح ظهوره استنادًا إلى مقارنات جغرافية مع ميامي الحقيقية وتفاصيل ظهرت في خلفيات التريلر. غير مؤكد رسميًا.",
+      source: "المصدر: تحليل مجتمعي غير رسمي"
+    }
+  };
+
+  const pins = document.querySelectorAll('.pin');
+  const panel = document.getElementById('info-panel');
+
+  pins.forEach(pin => {
+    pin.addEventListener('click', () => {
+      pins.forEach(p => p.classList.remove('active'));
+      pin.classList.add('active');
+      const d = data[pin.dataset.id];
+      if(!d) return;
+      panel.innerHTML = `
+        <span class="info-tag ${d.tag}">${d.tag === 'confirmed' ? 'مؤكد رسميًا' : 'شائعة غير مؤكدة'}</span>
+        <h2>${d.title}</h2>
+        <p>${d.desc}</p>
+        <div class="info-source">${d.source}</div>
+      `;
+    });
+  });
+</script>
+
+</body>
+</html>
